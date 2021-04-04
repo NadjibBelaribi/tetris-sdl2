@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/Tetris_NH.dir/src/main.cpp.o  -o Tetris_NH  -lSDL2 -lSDL2main -lSDL2_ttf 
