@@ -86,10 +86,40 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/info/Desktop/tetris-nh/include/utils.hpp">
+		<Unit filename="/home/info/Desktop/tetris-nh/src/block.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/block.hpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/color.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/color.hpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/grille.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/grille.hpp">
 			<Option target="Tetris_NH"/>
 		</Unit>
 		<Unit filename="/home/info/Desktop/tetris-nh/src/main.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/tetris.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/tetris.hpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/tetromino.cpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/tetromino.hpp">
+			<Option target="Tetris_NH"/>
+		</Unit>
+		<Unit filename="/home/info/Desktop/tetris-nh/src/utils.hpp">
 			<Option target="Tetris_NH"/>
 		</Unit>
 		<Unit filename="/home/info/Desktop/tetris-nh/CMakeLists.txt">

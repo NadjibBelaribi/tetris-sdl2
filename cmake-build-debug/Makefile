@@ -143,6 +143,87 @@ Tetris_NH/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/build
 .PHONY : Tetris_NH/fast
 
+src/block.o: src/block.cpp.o
+
+.PHONY : src/block.o
+
+# target to build an object file
+src/block.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/block.cpp.o
+.PHONY : src/block.cpp.o
+
+src/block.i: src/block.cpp.i
+
+.PHONY : src/block.i
+
+# target to preprocess a source file
+src/block.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/block.cpp.i
+.PHONY : src/block.cpp.i
+
+src/block.s: src/block.cpp.s
+
+.PHONY : src/block.s
+
+# target to generate assembly for a file
+src/block.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/block.cpp.s
+.PHONY : src/block.cpp.s
+
+src/color.o: src/color.cpp.o
+
+.PHONY : src/color.o
+
+# target to build an object file
+src/color.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/color.cpp.o
+.PHONY : src/color.cpp.o
+
+src/color.i: src/color.cpp.i
+
+.PHONY : src/color.i
+
+# target to preprocess a source file
+src/color.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/color.cpp.i
+.PHONY : src/color.cpp.i
+
+src/color.s: src/color.cpp.s
+
+.PHONY : src/color.s
+
+# target to generate assembly for a file
+src/color.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/color.cpp.s
+.PHONY : src/color.cpp.s
+
+src/grille.o: src/grille.cpp.o
+
+.PHONY : src/grille.o
+
+# target to build an object file
+src/grille.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/grille.cpp.o
+.PHONY : src/grille.cpp.o
+
+src/grille.i: src/grille.cpp.i
+
+.PHONY : src/grille.i
+
+# target to preprocess a source file
+src/grille.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/grille.cpp.i
+.PHONY : src/grille.cpp.i
+
+src/grille.s: src/grille.cpp.s
+
+.PHONY : src/grille.s
+
+# target to generate assembly for a file
+src/grille.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/grille.cpp.s
+.PHONY : src/grille.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -170,6 +251,60 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/tetris.o: src/tetris.cpp.o
+
+.PHONY : src/tetris.o
+
+# target to build an object file
+src/tetris.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetris.cpp.o
+.PHONY : src/tetris.cpp.o
+
+src/tetris.i: src/tetris.cpp.i
+
+.PHONY : src/tetris.i
+
+# target to preprocess a source file
+src/tetris.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetris.cpp.i
+.PHONY : src/tetris.cpp.i
+
+src/tetris.s: src/tetris.cpp.s
+
+.PHONY : src/tetris.s
+
+# target to generate assembly for a file
+src/tetris.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetris.cpp.s
+.PHONY : src/tetris.cpp.s
+
+src/tetromino.o: src/tetromino.cpp.o
+
+.PHONY : src/tetromino.o
+
+# target to build an object file
+src/tetromino.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetromino.cpp.o
+.PHONY : src/tetromino.cpp.o
+
+src/tetromino.i: src/tetromino.cpp.i
+
+.PHONY : src/tetromino.i
+
+# target to preprocess a source file
+src/tetromino.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetromino.cpp.i
+.PHONY : src/tetromino.cpp.i
+
+src/tetromino.s: src/tetromino.cpp.s
+
+.PHONY : src/tetromino.s
+
+# target to generate assembly for a file
+src/tetromino.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Tetris_NH.dir/build.make CMakeFiles/Tetris_NH.dir/src/tetromino.cpp.s
+.PHONY : src/tetromino.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -179,9 +314,24 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Tetris_NH"
+	@echo "... src/block.o"
+	@echo "... src/block.i"
+	@echo "... src/block.s"
+	@echo "... src/color.o"
+	@echo "... src/color.i"
+	@echo "... src/color.s"
+	@echo "... src/grille.o"
+	@echo "... src/grille.i"
+	@echo "... src/grille.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/tetris.o"
+	@echo "... src/tetris.i"
+	@echo "... src/tetris.s"
+	@echo "... src/tetromino.o"
+	@echo "... src/tetromino.i"
+	@echo "... src/tetromino.s"
 .PHONY : help
 
 

@@ -96,7 +96,7 @@ void Tetromino::rotate(Grille *g) {
 			possible_new.blocks()[i].setPosition(x_new, y_new);
 		}
 		
-		if(!g->moveTetromino(possible_new, Still)) {
+		if(!g->moveTetromino(possible_new, Hold)) {
 			bool to_right = possible_new.ableMove(Right, g);
 			bool to_left = true;
 			if(!to_right) {

@@ -1,13 +1,10 @@
-#include "SDL2/SDL.h"
+ #include "tetris.hpp"
 
-struct SDL_Deleter
-{
-    void operator()(SDL_Window *w) const
-    {
+struct SDL_Deleter {
+    void operator()(SDL_Window *w) const {
         SDL_DestroyWindow(w);
     }
-    void operator()(SDL_Renderer *r) const
-    {
+    void operator()(SDL_Renderer *r) const {
         SDL_DestroyRenderer(r);
     }
 };
@@ -15,8 +12,11 @@ struct SDL_Deleter
 int main(int argc, char *argv[])
 {
 
-    SDL_Window *wind = NULL;
-    SDL_Renderer *rend = NULL;
+    Tetris *t = new Tetris();
+
+    SDL_Window *w = NULL;
+    SDL_Renderer *r = NULL;
+    int wflags = 0, rflags = 0;
 
     if (SDL_Init(SDL_INIT_EVERYTHING))
     {
@@ -24,22 +24,39 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    wind = SDL_CreateWindow("Tetris_NH", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-    if (!wind)
+    w = SDL_CreateWindow("Tetris",
+                         SDL_WINDOWPOS_CENTERED,
+                         SDL_WINDOWPOS_CENTERED,
+                         WINDOW_WIDTH,
+                         WINDOW_HEIGHT,
+                         wflags);
+    if (!w)
     {
         SDL_Log("Unable to initialize Window: %s", SDL_GetError());
         exit(1);
     }
 
-    rend = SDL_CreateRenderer(wind, -1, 0);
-    if (!rend)
+    r = SDL_CreateRenderer(w, -1, rflags);
+    if (!r)
     {
         SDL_Log("Unable to initialize renderer: %s", SDL_GetError());
         exit(1);
     }
 
-    std::unique_ptr<SDL_Window, SDL_Deleter> window = std::unique_ptr<SDL_Window, SDL_Deleter>(wind);
-    std::unique_ptr<SDL_Renderer, SDL_Deleter> renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(rend);
+    std::unique_ptr<SDL_Window, SDL_Deleter> _window =  std::unique_ptr<SDL_Window, SDL_Deleter>(w);
+    std::unique_ptr<SDL_Renderer, SDL_Deleter> _renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(r);
+    std::unique_ptr<Tetris> _gs= std::unique_ptr<Tetris>(t);
+
+    while (!_gs->has_ended())
+    {
+        _gs->update();
+
+        SDL_RenderClear(_renderer.get());
+
+        _gs->render(_renderer.get());
+
+        SDL_RenderPresent(_renderer.get());
+    }
 
     return 0;
 }

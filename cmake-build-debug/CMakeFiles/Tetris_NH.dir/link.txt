@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/Tetris_NH.dir/src/main.cpp.o  -o Tetris_NH  -lSDL2 -lSDL2main -lSDL2_ttf 
+/usr/bin/c++  -g   CMakeFiles/Tetris_NH.dir/src/grille.cpp.o CMakeFiles/Tetris_NH.dir/src/color.cpp.o CMakeFiles/Tetris_NH.dir/src/block.cpp.o CMakeFiles/Tetris_NH.dir/src/tetromino.cpp.o CMakeFiles/Tetris_NH.dir/src/tetris.cpp.o CMakeFiles/Tetris_NH.dir/src/main.cpp.o  -o Tetris_NH  -lSDL2 -lSDL2main -lSDL2_ttf 

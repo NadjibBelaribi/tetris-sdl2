@@ -29,8 +29,16 @@ endfunction()
 
 
 ADD_PRG(TARGET Tetris_NH SOURCES
-        src/utils.hpp
         src/color.hpp
+        src/block.hpp
+        src/grille.cpp
+        src/utils.hpp
+        src/tetris.hpp
+        src/tetromino.hpp
         src/color.cpp
+        src/block.cpp
+        src/grille.hpp
+        src/tetromino.cpp
+        src/tetris.cpp
         src/main.cpp)
 

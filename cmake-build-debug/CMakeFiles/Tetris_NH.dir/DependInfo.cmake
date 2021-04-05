@@ -4,7 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/info/Desktop/tetris-nh/src/block.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/block.cpp.o"
+  "/home/info/Desktop/tetris-nh/src/color.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/color.cpp.o"
+  "/home/info/Desktop/tetris-nh/src/grille.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/grille.cpp.o"
   "/home/info/Desktop/tetris-nh/src/main.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/main.cpp.o"
+  "/home/info/Desktop/tetris-nh/src/tetris.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/tetris.cpp.o"
+  "/home/info/Desktop/tetris-nh/src/tetromino.cpp" "/home/info/Desktop/tetris-nh/cmake-build-debug/CMakeFiles/Tetris_NH.dir/src/tetromino.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
