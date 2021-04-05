@@ -2,11 +2,12 @@
 #include "utils.hpp"
 #include "block.hpp"
 
-Grille::Grille(uint8_t w, uint8_t h, uint8_t b) {
+Grille::Grille(uint8_t w, uint8_t h, uint8_t b,uint8_t index) {
 	this->_width = w;
 	this->_height = h;
 	this->_border = b;
-	this->map = std::vector< std::vector<Color> >
+    this->index_grille = index;
+    this->map = std::vector< std::vector<Color> >
 		(h + this->_border,
 		 std::vector<Color>(w + 2*this->_border));
 	this->setMap();

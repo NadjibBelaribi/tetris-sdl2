@@ -1,18 +1,19 @@
- #include "tetris.hpp"
+#include "tetris.hpp"
 
-struct SDL_Deleter {
-    void operator()(SDL_Window *w) const {
+struct SDL_Deleter
+{
+    void operator()(SDL_Window *w) const
+    {
         SDL_DestroyWindow(w);
     }
-    void operator()(SDL_Renderer *r) const {
+    void operator()(SDL_Renderer *r) const
+    {
         SDL_DestroyRenderer(r);
     }
 };
 
 int main(int argc, char *argv[])
 {
-
-    Tetris *t = new Tetris();
 
     SDL_Window *w = NULL;
     SDL_Renderer *r = NULL;
@@ -43,17 +44,24 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    std::unique_ptr<SDL_Window, SDL_Deleter> _window =  std::unique_ptr<SDL_Window, SDL_Deleter>(w);
+    std::unique_ptr<SDL_Window, SDL_Deleter> _window = std::unique_ptr<SDL_Window, SDL_Deleter>(w);
     std::unique_ptr<SDL_Renderer, SDL_Deleter> _renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(r);
-    std::unique_ptr<Tetris> _gs= std::unique_ptr<Tetris>(t);
 
-    while (!_gs->has_ended())
+    Tetris *t = new Tetris(1);
+    Tetris *t1 = new Tetris(2);
+
+    std::unique_ptr<Tetris> game = std::unique_ptr<Tetris>(t);
+    std::unique_ptr<Tetris> game1= std::unique_ptr<Tetris>(t1);
+
+    while (!game->isFinished())
     {
-        _gs->update();
+        game->update();
+        game1->update();
 
         SDL_RenderClear(_renderer.get());
 
-        _gs->render(_renderer.get());
+        game->render(_renderer.get());
+        game1->render(_renderer.get());
 
         SDL_RenderPresent(_renderer.get());
     }

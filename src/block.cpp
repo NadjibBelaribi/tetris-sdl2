@@ -49,7 +49,11 @@ void Block::render(SDL_Renderer *renderer, Grille *grid)
 						   this->_color.a);
 
 	SDL_Rect r;
-	r.x = pixels.first;
+
+	if
+	    (grid->index_grille  == 1 ) r.x = pixels.first + X_GRILLE_1 ;
+	else
+        r.x = pixels.first + X_GRILLE_2 ;
 	r.y = pixels.second;
 	r.w = r.h = this->_size;
 

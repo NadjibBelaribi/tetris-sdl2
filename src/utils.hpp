@@ -1,16 +1,24 @@
 #ifndef _UTILS_H_
 #define _UTILS_H_
 
-
+#include <vector>
+#include <cstdint>
 // WINDOWS SIZES
-const int WINDOW_WIDTH = 700;
-const int WINDOW_HEIGHT = 630;
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 650;
 
 const int GRID_WIDTH = 360;
 const int GRID_HEIGHT = 630;
 
-const int INFO_BEGIN_X = 360;
-const int INFO_BEGIN_Y = 0;
+const int X_GRILLE_1 = 100;
+const int Y_GRILLE_1 = 0;
+
+const int X_GRILLE_2 = 600;
+
+typedef enum {
+	SOLO,
+	DUO
+} GAME_MODE;
 
 typedef enum {
 	I = 0,
@@ -81,6 +89,5 @@ typedef enum {
 	Down,
 	Hold
 } Direction;
-
 
 #endif

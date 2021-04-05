@@ -13,12 +13,12 @@ class Grille;
 
 class Grille {
 public:
-	Grille(uint8_t, uint8_t, uint8_t);
+	Grille(uint8_t, uint8_t, uint8_t,uint8_t);
 	~Grille();
 	std::pair<int, int> map_cord(int8_t, int8_t) const;
 	void render(SDL_Renderer *);
 	void setColor(Tetromino);
-
+    uint8_t index_grille ;
 	bool moveTetromino(Tetromino, Direction);
 	uint32_t isTetris();
 	uint8_t width() const;
