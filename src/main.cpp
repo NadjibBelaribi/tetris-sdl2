@@ -8,7 +8,9 @@ int main(int argc, char *argv[])
     SDL_Renderer *r = NULL;
     int wflags = 0, rflags = 0;
     GAME_MODE mode = NONE;
+    SDL_Texture *tetris = NULL;
     SDL_Texture *bg = NULL;
+
     SDL_Event event;
 
     if (SDL_Init(SDL_INIT_EVERYTHING))
@@ -37,12 +39,19 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
+    tetris = IMG_LoadTexture(r, "../assets/tetris.png");
     bg = IMG_LoadTexture(r, "../assets/bg.png");
     bool chosen = false ;
-         while(SDL_PollEvent(&event) || !chosen ) {
-            SDL_RenderCopy(r, bg, NULL, NULL);
-            SDL_RenderPresent(r);
+
+    //  HANDLE MODE CHOICE
+    while(SDL_PollEvent(&event) || !chosen ) {
+            SDL_RenderCopy(r, tetris, NULL, NULL);
+
+        SDL_RenderPresent(r);
             switch(event.type) {
+                case SDL_QUIT:
+                    exit(1) ;
+                    break;
                 case SDL_KEYDOWN:
                     switch (event.key.keysym.sym) {
                         case SDLK_s:
@@ -59,6 +68,7 @@ int main(int argc, char *argv[])
             }
 
         }
+
 
     switch (mode) {
         case SOLO :
