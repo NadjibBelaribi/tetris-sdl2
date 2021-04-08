@@ -10,7 +10,7 @@ class Grille;
 #include "color.hpp"
 #include "tetromino.hpp"
 #include "utils.hpp"
-
+extern int hand ;
 class Grille {
 public:
 	Grille(uint8_t, uint8_t, uint8_t,uint8_t);

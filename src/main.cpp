@@ -1,29 +1,22 @@
 #include "tetris.hpp"
+#include <SDL_image.h>
 
-struct SDL_Deleter
-{
-    void operator()(SDL_Window *w) const
-    {
-        SDL_DestroyWindow(w);
-    }
-    void operator()(SDL_Renderer *r) const
-    {
-        SDL_DestroyRenderer(r);
-    }
-};
-
+int hand = 0 ;
 int main(int argc, char *argv[])
 {
-
     SDL_Window *w = NULL;
     SDL_Renderer *r = NULL;
     int wflags = 0, rflags = 0;
+    GAME_MODE mode = NONE;
+    SDL_Texture *bg = NULL;
+    SDL_Event event;
 
     if (SDL_Init(SDL_INIT_EVERYTHING))
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
         exit(1);
     }
+    IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG);
 
     w = SDL_CreateWindow("Tetris",
                          SDL_WINDOWPOS_CENTERED,
@@ -44,27 +37,98 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    std::unique_ptr<SDL_Window, SDL_Deleter> _window = std::unique_ptr<SDL_Window, SDL_Deleter>(w);
-    std::unique_ptr<SDL_Renderer, SDL_Deleter> _renderer = std::unique_ptr<SDL_Renderer, SDL_Deleter>(r);
+    bg = IMG_LoadTexture(r, "../assets/bg.png");
+    bool chosen = false ;
+         while(SDL_PollEvent(&event) || !chosen ) {
+            SDL_RenderCopy(r, bg, NULL, NULL);
+            SDL_RenderPresent(r);
+            switch(event.type) {
+                case SDL_KEYDOWN:
+                    switch (event.key.keysym.sym) {
+                        case SDLK_s:
+                            mode = SOLO ;
+                            chosen = true;
+                            break;
+                        case SDLK_d:
+                            mode = DUO ;
+                            chosen = true;
+                            break;
+                    }
+                    break;
 
-    Tetris *t = new Tetris(1);
-    Tetris *t1 = new Tetris(2);
+            }
 
-    std::unique_ptr<Tetris> game = std::unique_ptr<Tetris>(t);
-    std::unique_ptr<Tetris> game1= std::unique_ptr<Tetris>(t1);
+        }
 
-    while (!game->isFinished())
-    {
-        game->update();
-        game1->update();
+    switch (mode) {
+        case SOLO :
+              {
+                  Tetris *t = new Tetris(0);
+                  std::unique_ptr<Tetris> game = std::unique_ptr<Tetris>(t);
+                  while (!game->isFinished())
+                  {
+                      SDL_RenderClear(r);
+                      SDL_RenderCopy(r, bg, NULL, NULL);
+                      game->handleInput() ;
+                      game->grille->render(r);
+                      if (hand == 0 && !game->isFinished()) {
 
-        SDL_RenderClear(_renderer.get());
+                          game->currTetromino->render(r, game->grille.get());
+                          game->nextShape->render(r, game->grille.get());
 
-        game->render(_renderer.get());
-        game1->render(_renderer.get());
+                      }
+                      game->handleText(r);
+                      SDL_RenderPresent(r);
+                  }
 
-        SDL_RenderPresent(_renderer.get());
-    }
+              }
+            break;
+        case DUO : {
+            Tetris *t = new Tetris(0);
+            Tetris *t1 = new Tetris(1);
+
+            std::unique_ptr<Tetris> game = std::unique_ptr<Tetris>(t);
+            std::unique_ptr<Tetris> game1 = std::unique_ptr<Tetris>(t1);
+
+
+            while (!game->isFinished() || !game1->isFinished()) {
+                SDL_RenderClear(r);
+
+                if (hand == 0 && !game->isFinished()) game->handleInput();
+                if (hand == 1 && !game1->isFinished()) game1->handleInput();
+                SDL_RenderCopy(r, bg, NULL, NULL);
+
+                game->grille->render(r);
+                if (hand == 0 && !game->isFinished()) {
+
+                    game->currTetromino->render(r, game->grille.get());
+                    game->nextShape->render(r, game->grille.get());
+
+                }
+                game->handleText(r);
+
+                game1->grille->render(r);
+                if (hand == 1 && !game1->isFinished()) {
+                    game1->currTetromino->render(r, game1->grille.get());
+                    game1->nextShape->render(r, game1->grille.get());
+                }
+                game1->handleText(r);
+
+                SDL_RenderPresent(r);
+            }
+        }
+            break;
+        default:
+            break;
+     }
+
+
+    SDL_DestroyTexture(bg);
+    IMG_Quit();
+    SDL_DestroyRenderer(r);
+    SDL_DestroyWindow(w);
+    SDL_Quit();
 
     return 0;
 }
+

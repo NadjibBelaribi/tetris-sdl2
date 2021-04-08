@@ -10,7 +10,7 @@ Tetris::Tetris(uint8_t index)  {
     this->index_grille = index;
 
     this->grille = std::unique_ptr<Grille>(new Grille(10, 20, 1, this->index_grille));
-	this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
+	 this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
 	srand(time(NULL));
 	this->currTetromino =
 		std::unique_ptr<Tetromino>(new Tetromino);
@@ -32,7 +32,7 @@ Tetris::~Tetris() {
 	TTF_Quit();
 }
 
-void Tetris::update() {
+void Tetris::handleInput() {
 	SDL_Event e;
  	while(SDL_PollEvent(&e)) {
 		switch(e.type) {

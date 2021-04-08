@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <SDL2/SDL_image.h>
 // WINDOWS SIZES
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 650;
@@ -17,7 +18,8 @@ const int X_GRILLE_2 = 600;
 
 typedef enum {
 	SOLO,
-	DUO
+	DUO,
+	NONE
 } GAME_MODE;
 
 typedef enum {
@@ -89,5 +91,7 @@ typedef enum {
 	Down,
 	Hold
 } Direction;
+
+
 
 #endif

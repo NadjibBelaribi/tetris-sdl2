@@ -136,4 +136,4 @@ void Grille::updateMap(uint8_t row) {
  	this->map[0] = std::vector<Color>(this->_width + 2*this->_border);
 	this->map[0][0] = GREY;
 	this->map[0][this->map[0].size()-1] = GREY;
-}
+ }

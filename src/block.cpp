@@ -51,7 +51,7 @@ void Block::render(SDL_Renderer *renderer, Grille *grid)
 	SDL_Rect r;
 
 	if
-	    (grid->index_grille  == 1 ) r.x = pixels.first + X_GRILLE_1 ;
+	    (grid->index_grille  == 0 ) r.x = pixels.first + X_GRILLE_1 ;
 	else
         r.x = pixels.first + X_GRILLE_2 ;
 	r.y = pixels.second;
