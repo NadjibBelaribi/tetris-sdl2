@@ -34,7 +34,7 @@ Tetris::~Tetris() {
 
 void Tetris::handleInput() {
 	SDL_Event e;
- 	while(SDL_PollEvent(&e)) {
+ 	while(SDL_PollEvent(&e) && hand == this->index_grille) {
 		switch(e.type) {
 		case SDL_QUIT:
 			this->end = true;
@@ -104,7 +104,10 @@ void Tetris::exchangeTetromino() {
 	this->nextShape->translate(offset.first, offset.second);
 	this->currTetromino.swap(this->nextShape);
 	if(!this->currTetromino->ableMove(Down, this->grille.get()))
-		this->end = true;
+    {
+	    this->end = true;
+	    hand = (hand + 1) % 2 ;
+    }
 	this->score += this->grille->isTetris();
  	this->nextShape = std::unique_ptr<Tetromino>(new Tetromino);
 	this->sendNext();
@@ -148,12 +151,13 @@ void Tetris::handleText(SDL_Renderer *renderer) {
  	surfaceMessage = TTF_RenderText_Solid(this->text, "Next", White);
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
-	if(this->index_grille == 1) 
-		Message_rect.x = X_GRILLE_1 + 300;
+	if(this->index_grille == 0)
+		if (mode == SOLO ) Message_rect.x = X_GRILLE_CENTERED + 300;
+		else Message_rect.x = X_GRILLE_1 + 300;
 	else 
 		Message_rect.x = X_GRILLE_2 + 300;
 
-	Message_rect.y = Y_GRILLE_1;
+	Message_rect.y = Y_GRILLE;
 	Message_rect.w = 90;
 	Message_rect.h = 50;
 
@@ -185,10 +189,14 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 
 Uint32 Tetris::handleProgress(Uint32 interval, void *param) {
 	auto t = (Tetris *) param;
-	t->currTetromino->ableMove(Down, t->grille.get());
-	if(t->currTetromino->getState()) {
-		t->exchangeTetromino();
-	}
+	if (hand == t->index_grille ||  mode == SOLO)
+    {
+        t->currTetromino->ableMove(Down, t->grille.get());
+        if(t->currTetromino->getState()) {
+            t->exchangeTetromino();
+        }
 
-	return interval;
+        return interval;
+    }
+    return 1000 ;
 }

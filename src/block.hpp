@@ -7,8 +7,11 @@ class Block;
 #include <utility>
 #include "grille.hpp"
 #include "block.hpp"
+#include "utils.hpp"
+
 #include "color.hpp"
 
+extern GAME_MODE mode ;
 class Block {
 public:
 	Block();

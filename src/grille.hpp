@@ -21,9 +21,7 @@ public:
     uint8_t index_grille ;
 	bool moveTetromino(Tetromino, Direction);
 	uint32_t isTetris();
-	uint8_t width() const;
-	uint8_t height() const;
-	uint8_t border() const;
+
 private:
 	void setMap();
 	uint8_t _width, _height, _border;

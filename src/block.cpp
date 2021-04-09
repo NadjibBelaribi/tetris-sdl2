@@ -50,11 +50,12 @@ void Block::render(SDL_Renderer *renderer, Grille *grid)
 
 	SDL_Rect r;
 
-	if
-	    (grid->index_grille  == 0 ) r.x = pixels.first + X_GRILLE_1 ;
+	if (grid->index_grille  == 0 )
+	    if (mode == SOLO ) r.x = pixels.first + X_GRILLE_CENTERED;
+	    else  r.x = pixels.first + X_GRILLE_1 ;
 	else
         r.x = pixels.first + X_GRILLE_2 ;
-	r.y = pixels.second;
+	r.y = pixels.second + Y_GRILLE;
 	r.w = r.h = this->_size;
 
 	SDL_RenderFillRect(renderer, &r);

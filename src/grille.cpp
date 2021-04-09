@@ -53,18 +53,6 @@ std::pair<int, int> Grille::map_cord(int8_t x, int8_t y) const {
 }
 
 
-uint8_t Grille::width() const {
-	return this->_width;
-}
-
-uint8_t Grille::height() const {
-	return this->_height;
-}
-
-uint8_t Grille::border() const {
-	return this->_border;
-}
-
 bool Grille::moveTetromino(Tetromino t, Direction d) {
 	for(auto block : t.blocks()) {
 		std::pair<uint8_t, uint8_t> offset = std::make_pair(0, 0);
@@ -121,7 +109,8 @@ uint32_t Grille::isTetris() {
 		if(tetris) {
 			printf("TETRIS line %d\n", i);
   			points += 100;
-			printf("Updating board...\n");
+  			hand = (hand + 1 )% 2 ;
+			printf("Updating board and giving hand to %d \n",hand);
 			this->updateMap(i);
 			i++;
 		}

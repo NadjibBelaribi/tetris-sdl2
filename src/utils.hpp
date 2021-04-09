@@ -11,10 +11,10 @@ const int WINDOW_HEIGHT = 650;
 const int GRID_WIDTH = 360;
 const int GRID_HEIGHT = 630;
 
-const int X_GRILLE_1 = 100;
-const int Y_GRILLE_1 = 0;
-
-const int X_GRILLE_2 = 600;
+const int X_GRILLE_1 = 200;
+const int Y_GRILLE = 50;
+const int X_GRILLE_CENTERED = 450 ;
+const int X_GRILLE_2 = 700;
 
 typedef enum {
 	SOLO,
