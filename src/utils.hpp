@@ -3,18 +3,18 @@
 
 #include <vector>
 #include <cstdint>
-#include <SDL2/SDL_image.h>
-// WINDOWS SIZES
-const int WINDOW_WIDTH = 1200;
-const int WINDOW_HEIGHT = 650;
+
+ // WINDOWS SIZES
+const int WINDOW_WIDTH = 900;
+const int WINDOW_HEIGHT = 600;
 
 const int GRID_WIDTH = 360;
 const int GRID_HEIGHT = 630;
 
-const int X_GRILLE_1 = 200;
+const int X_GRILLE_1 = 50;
 const int Y_GRILLE = 50;
-const int X_GRILLE_CENTERED = 450 ;
-const int X_GRILLE_2 = 700;
+const int X_GRILLE_CENTERED = 300 ;
+const int X_GRILLE_2 = 500;
 
 typedef enum {
 	SOLO,
@@ -32,6 +32,11 @@ typedef enum {
 	Z,
 	NSHAPES
 } TetrominoShape;
+
+ struct App {
+    SDL_Window *w ;
+    SDL_Renderer *r ;
+};
 
 const std::vector< std::vector< std::pair<int8_t, int8_t> > > POSITIONS {
 	// I

@@ -17,8 +17,7 @@ public:
 	Tetris(uint8_t);
 	~Tetris();
 	void handleInput();
-	void render(SDL_Renderer *);
-	bool isFinished();
+ 	bool isFinished();
 	std::unique_ptr<Tetromino> currTetromino;
     int index_grille ;
     std::unique_ptr<Grille> grille;

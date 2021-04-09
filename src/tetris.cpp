@@ -10,7 +10,7 @@ Tetris::Tetris(uint8_t index)  {
     this->index_grille = index;
 
     this->grille = std::unique_ptr<Grille>(new Grille(10, 20, 1, this->index_grille));
-	 this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
+     this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
 	srand(time(NULL));
 	this->currTetromino =
 		std::unique_ptr<Tetromino>(new Tetromino);
@@ -69,13 +69,6 @@ void Tetris::handleInput() {
 	}
 }
 
-void Tetris::render(SDL_Renderer *renderer) {
-	this->grille->render(renderer);
-	this->currTetromino->render(renderer, this->grille.get());
-	this->nextShape->render(renderer, this->grille.get());
- 	this->handleText(renderer);
-
-}
 
 bool Tetris::isFinished() {
 	return this->end;
@@ -106,7 +99,8 @@ void Tetris::exchangeTetromino() {
 	if(!this->currTetromino->ableMove(Down, this->grille.get()))
     {
 	    this->end = true;
-	    hand = (hand + 1) % 2 ;
+        hand = (hand + 1) % 2 ;
+        if (mode == SOLO ) SDL_RemoveTimer(this->chrono);
     }
 	this->score += this->grille->isTetris();
  	this->nextShape = std::unique_ptr<Tetromino>(new Tetromino);
@@ -147,17 +141,16 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 	SDL_Color White = {255, 255, 255};
 	SDL_Surface *surfaceMessage = NULL;
 	SDL_Rect Message_rect;
-
- 	surfaceMessage = TTF_RenderText_Solid(this->text, "Next", White);
+  	surfaceMessage = TTF_RenderText_Solid(this->text, "Next", White);
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 	if(this->index_grille == 0)
 		if (mode == SOLO ) Message_rect.x = X_GRILLE_CENTERED + 300;
-		else Message_rect.x = X_GRILLE_1 + 300;
+		else Message_rect.x = X_GRILLE_1 + 250;
 	else 
-		Message_rect.x = X_GRILLE_2 + 300;
+		Message_rect.x = X_GRILLE_2 + 250;
 
-	Message_rect.y = Y_GRILLE;
+	Message_rect.y = Y_GRILLE - 50;
 	Message_rect.w = 90;
 	Message_rect.h = 50;
 
@@ -189,7 +182,7 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 
 Uint32 Tetris::handleProgress(Uint32 interval, void *param) {
 	auto t = (Tetris *) param;
-	if (hand == t->index_grille ||  mode == SOLO)
+	if (hand == t->index_grille ||  mode == SOLO )
     {
         t->currTetromino->ableMove(Down, t->grille.get());
         if(t->currTetromino->getState()) {

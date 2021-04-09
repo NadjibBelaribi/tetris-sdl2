@@ -109,7 +109,7 @@ uint32_t Grille::isTetris() {
 		if(tetris) {
 			printf("TETRIS line %d\n", i);
   			points += 100;
-  			hand = (hand + 1 )% 2 ;
+  			if (mode == DUO ) hand = (hand + 1 )% 2 ;
 			printf("Updating board and giving hand to %d \n",hand);
 			this->updateMap(i);
 			i++;
