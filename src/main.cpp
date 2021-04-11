@@ -1,7 +1,7 @@
+#include <iostream>
 #include "tetris.hpp"
-#include <SDL_image.h>
 
- int hand = 0 ;
+int hand = 0 ;
 GAME_MODE mode = NONE;
 bool replay = false ;
 struct App app ;
@@ -10,8 +10,8 @@ void HomeScreen(SDL_Renderer *r,SDL_Texture *tetris,SDL_Event event){
     bool chosen = false ;
     //  HANDLE MODE CHOICE
     while(SDL_PollEvent(&event) || !chosen ) {
+        SDL_RenderClear(r) ;
         SDL_RenderCopy(r, tetris, NULL, NULL);
-
         SDL_RenderPresent(r);
         switch(event.type) {
             case SDL_QUIT:
@@ -33,12 +33,8 @@ void HomeScreen(SDL_Renderer *r,SDL_Texture *tetris,SDL_Event event){
 
     }
 }
-void GameScreen(SDL_Renderer *r,SDL_Texture *bg,SDL_Texture *box){
-    SDL_Rect rect ;
-    rect.h = 200 ;
-    rect.w = 150 ;
-    rect.x = 600 ;
-    rect.y = 50 ;
+uint8_t GameScreen(SDL_Renderer *r,SDL_Texture *bg){
+     uint8_t winner = -1 ;
 
     switch (mode) {
         case SOLO :
@@ -49,19 +45,17 @@ void GameScreen(SDL_Renderer *r,SDL_Texture *bg,SDL_Texture *box){
             {
                 SDL_RenderClear(r);
                 SDL_RenderCopy(r, bg, NULL, NULL);
-               // SDL_RenderCopy(r, box, NULL, &rect);
-
                 game->handleInput() ;
                 game->grille->render(r);
                 if (hand == 0 && !game->isFinished()) {
 
                     game->currTetromino->render(r, game->grille.get());
-                    game->nextShape->render(r, game->grille.get());
+                    game->nextTetromino->render(r, game->grille.get());
                 }
                 game->handleText(r);
                 SDL_RenderPresent(r);
             }
-         }
+          }
             break;
         case DUO : {
             Tetris *game = new Tetris(0);
@@ -78,7 +72,7 @@ void GameScreen(SDL_Renderer *r,SDL_Texture *bg,SDL_Texture *box){
                 if (hand == 0 && !game->isFinished()) {
 
                     game->currTetromino->render(r, game->grille.get());
-                    game->nextShape->render(r, game->grille.get());
+                    game->nextTetromino->render(r, game->grille.get());
 
                 }
                 game->handleText(r);
@@ -86,24 +80,35 @@ void GameScreen(SDL_Renderer *r,SDL_Texture *bg,SDL_Texture *box){
                 game1->grille->render(r);
                 if (hand == 1 && !game1->isFinished()) {
                     game1->currTetromino->render(r, game1->grille.get());
-                    game1->nextShape->render(r, game1->grille.get());
+                    game1->nextTetromino->render(r, game1->grille.get());
                 }
                 game1->handleText(r);
                 SDL_RenderPresent(r);
             }
-
-        }
+            winner = (game->getScore() > game1->getScore())? 1:2 ;
+         }
             break;
         default:
             break;
     }
-}
 
-bool gameOverScreen(SDL_Renderer *r , SDL_Texture *gover,SDL_Event event){
+    return winner ;
+ }
+
+bool gameOverScreen(SDL_Renderer *r , SDL_Texture *gover,SDL_Event event,SDL_Texture *winner){
     bool chosen = false ;
+    SDL_Rect rect ;
+    rect.h = 150 ;
+    rect.w = 300 ;
+    rect.x = 300 ;
+    rect.y = 230 ;
+
     //  HANDLE MODE CHOICE
     while(SDL_PollEvent(&event) || !chosen ) {
+        SDL_RenderClear(r) ;
         SDL_RenderCopy(r, gover, NULL, NULL);
+        if (mode == DUO) SDL_RenderCopy(r, winner, NULL, &rect);
+
         SDL_RenderPresent(r);
         switch(event.type) {
             case SDL_QUIT:
@@ -120,9 +125,9 @@ bool gameOverScreen(SDL_Renderer *r , SDL_Texture *gover,SDL_Event event){
                         break;
                 }
                 break;
-
         }
     }
+
     return replay ;
 }
 
@@ -152,6 +157,13 @@ void initSDL(){
         SDL_Log("Unable to initialize renderer: %s", SDL_GetError());
         exit(1);
     }
+
+    TTF_Init();
+    app.font = TTF_OpenFont("../assets/font.ttf", 18);
+    if(!app.font) {
+        std::cout << "TTF_OpenFont: " << TTF_GetError() << std::endl ;
+        exit(1);
+    }
 }
 
 int main()
@@ -160,25 +172,32 @@ int main()
     SDL_Texture *tetris = NULL;
     SDL_Texture *bg = NULL;
     SDL_Texture *gover = NULL;
-    SDL_Texture *box = NULL;
+     SDL_Texture *winner1= NULL;
+    SDL_Texture *winner2= NULL;
+
 
     SDL_Event event;
     bool play = true ;
-
+    uint8_t  winner = -1 ;
 
     initSDL() ;
     tetris = IMG_LoadTexture(app.r, "../assets/tetris.png");
     bg = IMG_LoadTexture(app.r, "../assets/bg.png");
     gover = IMG_LoadTexture(app.r, "../assets/game-over.png");
-    box = IMG_LoadTexture(app.r, "../assets/box.png");
+     winner1 = IMG_LoadTexture(app.r, "../assets/win1.png");
+    winner2 = IMG_LoadTexture(app.r, "../assets/win2.png");
+
 
     while (play){
         hand = 0 ;
         mode = NONE ;
         replay = false ;
         HomeScreen(app.r,tetris,event) ;
-        GameScreen(app.r,bg,box) ;
-        play = gameOverScreen(app.r,gover,event) ;
+        winner = GameScreen(app.r,bg) ;
+        if (winner == 1 )
+            play = gameOverScreen(app.r,gover,event,winner1) ;
+        else
+            play = gameOverScreen(app.r,gover,event,winner2) ;
 
     }
 

@@ -1,30 +1,17 @@
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
+
 #include "tetris.hpp"
-#include "block.hpp"
-#include "color.hpp"
+
 
 Tetris::Tetris(uint8_t index)  {
 	this->end = false;
     this->index_grille = index;
-
-    this->grille = std::unique_ptr<Grille>(new Grille(10, 20, 1, this->index_grille));
-     this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
-	srand(time(NULL));
-	this->currTetromino =
-		std::unique_ptr<Tetromino>(new Tetromino);
-	this->nextShape =
-		std::unique_ptr<Tetromino>(new Tetromino);
-	this->sendNext();
 	this->score = 0;
-
-	TTF_Init();
-	this->text = TTF_OpenFont("../assets/font.ttf", 18);
-	if(!this->text) {
-		printf("TTF_OpenFont: %s\n", TTF_GetError());
-		exit(1);
-	}
+    this->grille = std::unique_ptr<Grille>(new Grille(10, 20, 1, this->index_grille));
+    this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
+	srand(time(NULL));
+	this->currTetromino = std::unique_ptr<Tetromino>(new Tetromino);
+	this->nextTetromino = std::unique_ptr<Tetromino>(new Tetromino);
+	this->sendNext();
 
 }
 
@@ -77,7 +64,7 @@ bool Tetris::isFinished() {
 void Tetris::exchangeTetromino() {
 	this->grille->setColor(*this->currTetromino);
 	std::pair<int8_t, int8_t> offset = std::make_pair(-9, -3);
-	switch(this->nextShape->shape()) {
+	switch(this->nextTetromino->shape()) {
 	case I:
 		offset.second -= 2;
 		break;
@@ -94,8 +81,8 @@ void Tetris::exchangeTetromino() {
 	default:
 		break;
 	}
-	this->nextShape->translate(offset.first, offset.second);
-	this->currTetromino.swap(this->nextShape);
+	this->nextTetromino->translate(offset.first, offset.second);
+	this->currTetromino.swap(this->nextTetromino);
 	if(!this->currTetromino->ableMove(Down, this->grille.get()))
     {
 	    this->end = true;
@@ -103,13 +90,15 @@ void Tetris::exchangeTetromino() {
         if (mode == SOLO ) SDL_RemoveTimer(this->chrono);
     }
 	this->score += this->grille->isTetris();
- 	this->nextShape = std::unique_ptr<Tetromino>(new Tetromino);
+ 	this->nextTetromino = std::unique_ptr<Tetromino>(new Tetromino);
 	this->sendNext();
 }
-
+uint32_t Tetris::getScore(){
+    return this->score ;
+}
 void Tetris::sendNext() {
 	std::pair<int8_t, int8_t> offset = std::make_pair(9, 3);
-	switch(this->nextShape->shape()) {
+	switch(this->nextTetromino->shape()) {
 	case I:
 		offset.second += 2;
 		break;
@@ -126,7 +115,7 @@ void Tetris::sendNext() {
 	default:
 		break;
 	}
-	this->nextShape->translate(offset.first, offset.second);
+	this->nextTetromino->translate(offset.first, offset.second);
 }
 
 
@@ -141,16 +130,16 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 	SDL_Color White = {255, 255, 255};
 	SDL_Surface *surfaceMessage = NULL;
 	SDL_Rect Message_rect;
-  	surfaceMessage = TTF_RenderText_Solid(this->text, "Next", White);
+  	surfaceMessage = TTF_RenderText_Solid(app.font, "Next", White);
 	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 
 	if(this->index_grille == 0)
 		if (mode == SOLO ) Message_rect.x = X_GRILLE_CENTERED + 300;
-		else Message_rect.x = X_GRILLE_1 + 250;
+		else Message_rect.x = X_GRILLE_1 + 290;
 	else 
-		Message_rect.x = X_GRILLE_2 + 250;
+		Message_rect.x = X_GRILLE_2 + 290;
 
-	Message_rect.y = Y_GRILLE - 50;
+	Message_rect.y = Y_GRILLE - 30;
 	Message_rect.w = 90;
 	Message_rect.h = 50;
 
@@ -158,7 +147,7 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 	SDL_FreeSurface(surfaceMessage);
 	SDL_DestroyTexture(Message);
 
- 	surfaceMessage = TTF_RenderText_Solid(this->text, "Score", White);
+ 	surfaceMessage = TTF_RenderText_Solid(app.font, "Score", White);
 	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 	Message_rect.y += 200;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
@@ -169,18 +158,31 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 	char points[256];
 	snprintf(points, 255, "%d", this->score);
 
- 	surfaceMessage = TTF_RenderText_Solid(this->text, points, White);
+ 	surfaceMessage = TTF_RenderText_Solid(app.font, points, White);
 	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
 	Message_rect.y += 50;
 	Message_rect.x += 30;
 	Message_rect.h -= 5;
 	Message_rect.w = 30;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
+
+    snprintf(points, 255, "Player %d", this->index_grille + 1);
+    surfaceMessage = TTF_RenderText_Solid(app.font, points, White);
+    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    Message_rect.y += 280;
+    Message_rect.x -= 245;
+    Message_rect.h = 30;
+    Message_rect.w = 100;
+
+    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
+
 }
 
-Uint32 Tetris::handleProgress(Uint32 interval, void *param) {
+Uint32 Tetris::handleProgress(Uint32 interval, void    *param) {
 	auto t = (Tetris *) param;
 	if (hand == t->index_grille ||  mode == SOLO )
     {

@@ -9,7 +9,9 @@ public:
 	Color(uint8_t, uint8_t, uint8_t, uint8_t);
 	~Color();
 	uint8_t r, g, b, a;
+	// new colors equality definition
 	bool operator==(const Color &);
+	// new colors differency definition
 	bool operator!=(const Color &);
 };
 

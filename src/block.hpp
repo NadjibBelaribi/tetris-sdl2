@@ -3,15 +3,14 @@
 
 class Block;
 
-#include <SDL2/SDL.h>
 #include <utility>
 #include "grille.hpp"
 #include "block.hpp"
 #include "utils.hpp"
-
 #include "color.hpp"
 
 extern GAME_MODE mode ;
+
 class Block {
 public:
 	Block();
@@ -21,12 +20,12 @@ public:
 	void render(SDL_Renderer *, Grille *);
 	void translate(int8_t, int8_t);
 	void setPosition(int8_t, int8_t);
-	void setColor(Color c);
+	void setColor(Color );
 	std::pair<int8_t, int8_t> getPosition();
 private:
 	std::pair<int8_t, int8_t> _position;
 	Color _color;
-	int _size;
+	int blockSize;
 };
 
 #endif

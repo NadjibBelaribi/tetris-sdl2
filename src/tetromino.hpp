@@ -6,6 +6,8 @@ class Tetromino;
 #include <memory>
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <cstdio>
 #include "block.hpp"
 #include "color.hpp"
 #include "utils.hpp"
@@ -16,7 +18,7 @@ public:
 	Tetromino();
 	Tetromino(TetrominoShape);
 	~Tetromino();
-	void render(SDL_Renderer *, Grille *, bool outline = false);
+	void render(SDL_Renderer *, Grille *);
 
 	bool ableMove(Direction, Grille *);
 	bool getState();

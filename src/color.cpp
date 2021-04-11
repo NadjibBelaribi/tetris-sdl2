@@ -1,6 +1,7 @@
 #include "color.hpp"
 
 Color::Color() {
+	// BLACK BY DEFAULT
  	this->r = this->g = this->b = 0;
 	this->a = 255;
 }
