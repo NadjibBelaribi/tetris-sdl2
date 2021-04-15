@@ -5,9 +5,8 @@ Advanced programming with C++ and SDL2
 
 # Build It ? 
 
-- If you are using CLion , it's already configured , press run 
-- Otherwise run in a terminal : 'cmake -S . -B build'
-- cd build && ./Tetris_NH
+- chmod +x run.sh
+- ./run.sh 
   
 # Use it ?
 
@@ -16,4 +15,5 @@ After lanching it :
 - Press "M" for duo mode
 - Game is ON
 - Use the directions keys to manipulate the tetrominos
+- When a game is done , Press "Y" to replay , else Press "N"
 
