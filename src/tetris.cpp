@@ -5,11 +5,11 @@ Tetris::Tetris(uint8_t index)  {
 	this->end = false;
     this->index_grille = index;
 	this->score = 0;
+    this->level = 0 ;
      timePassed = 0 ;
      this->grille = std::unique_ptr<Grille>(new Grille(10, 20, 1, this->index_grille));
     this->chrono = SDL_AddTimer(1000, this->handleProgress, this);
-	srand(time(NULL));
-	this->currTetromino = std::unique_ptr<Tetromino>(new Tetromino);
+ 	this->currTetromino = std::unique_ptr<Tetromino>(new Tetromino);
 	this->nextTetromino = std::unique_ptr<Tetromino>(new Tetromino);
 	this->sendNext();
 
@@ -88,7 +88,7 @@ void Tetris::exchangeTetromino() {
         hand = (hand + 1) % 2 ;
         if (mode == SOLO ) SDL_RemoveTimer(this->chrono);
     }
-	this->score += this->grille->isTetris() * this->timePassed / 2;
+	this->score += this->grille->isTetris() ;
  	this->nextTetromino = std::unique_ptr<Tetromino>(new Tetromino);
 	this->sendNext();
 }
@@ -169,10 +169,31 @@ void Tetris::handleText(SDL_Renderer *renderer) {
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(Message);
 
+    surfaceMessage = TTF_RenderText_Solid(app.font, "Level", White);
+    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    Message_rect.y += 100;
+    Message_rect.h = 50;
+    Message_rect.x -= 30;
+    Message_rect.w = 90;
+    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
+
+     snprintf(temp, 255, "%d", this->level);
+    surfaceMessage = TTF_RenderText_Solid(app.font, temp, White);
+    Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+    Message_rect.y += 50;
+    Message_rect.h += 5;
+    Message_rect.x += 30;
+    Message_rect.w = 30;
+    SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+    SDL_FreeSurface(surfaceMessage);
+    SDL_DestroyTexture(Message);
+
     snprintf(temp, 255, "Player %d", this->index_grille + 1);
     surfaceMessage = TTF_RenderText_Solid(app.font, temp, White);
     Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    Message_rect.y += 280;
+    Message_rect.y += 125;
     Message_rect.x -= 245;
     Message_rect.h = 30;
     Message_rect.w = 100;
@@ -185,6 +206,8 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 Uint32 Tetris::handleProgress(uint32_t interval, void *param) {
 	auto t = (Tetris *) param;
     t->timePassed ++ ;
+    int temp = t->getScore() / 10 - 2 ;
+    t->level = std::max( temp, 0) ;
     if (hand == t->index_grille ||  mode == SOLO )
     {
         t->currTetromino->ableMove(Down, t->grille.get());

@@ -113,7 +113,7 @@ uint32_t Grille::isTetris()
         }
         if (tetris)
         {
-            points += 100;
+            points += 10;
             if (mode == DUO)
                 hand = (hand + 1) % 2;
             this->updateMap(i++);
@@ -125,12 +125,10 @@ uint32_t Grille::isTetris()
 void Grille::updateMap(uint8_t rowIndex)
 {
     this->map[0] = std::vector<Color>(this->_width + 2 * this->_border);
-    this->map[0][0] = GREY;
-    this->map[0][this->map[0].size() - 1] = GREY;
+    this->map[0][0] = CYAN;
+    this->map[0][this->map[0].size() - 1] = CYAN;
 
     for (uint8_t i = rowIndex; i > 0; i--)
-    {
-        this->map[i] = this->map[i - 1];
-    }
+            this->map[i] = this->map[i - 1];
 
 }

@@ -5,7 +5,7 @@ int hand = 0 ;
 GAME_MODE mode = NONE;
 bool replay = false ;
 struct App app ;
-
+Tetris *game , *game1;
 void HomeScreen(SDL_Renderer *r,SDL_Texture *tetris,SDL_Event event){
     bool chosen = false ;
     //  HANDLE MODE CHOICE
@@ -58,8 +58,8 @@ uint8_t GameScreen(SDL_Renderer *r,SDL_Texture *bg){
           }
             break;
         case DUO : {
-            Tetris *game = new Tetris(0);
-            Tetris *game1 = new Tetris(1);
+            game = new Tetris(0);
+            game1 = new Tetris(1);
 
             while (!game->isFinished() || !game1->isFinished()) {
                 SDL_RenderClear(r);
@@ -86,6 +86,7 @@ uint8_t GameScreen(SDL_Renderer *r,SDL_Texture *bg){
                 SDL_RenderPresent(r);
             }
             winner = (game->getScore() > game1->getScore())? 1:2 ;
+
          }
             break;
         default:
@@ -159,7 +160,7 @@ void initSDL(){
     }
 
     TTF_Init();
-    app.font = TTF_OpenFont("../assets/font.ttf", 20);
+    app.font = TTF_OpenFont("../assets/font.ttf", 16);
     if(!app.font) {
         std::cout << "TTF_OpenFont: " << TTF_GetError() << std::endl ;
         exit(1);
@@ -184,8 +185,9 @@ int main()
     tetris = IMG_LoadTexture(app.r, "../assets/tetris.png");
     bg = IMG_LoadTexture(app.r, "../assets/bg.png");
     gover = IMG_LoadTexture(app.r, "../assets/game-over.png");
-     winner1 = IMG_LoadTexture(app.r, "../assets/win1.png");
+    winner1 = IMG_LoadTexture(app.r, "../assets/win1.png");
     winner2 = IMG_LoadTexture(app.r, "../assets/win2.png");
+
 
 
     while (play){

@@ -32,6 +32,7 @@ private:
 	bool end;
 	SDL_TimerID chrono;
 	uint32_t score;
+	uint8_t level ;
 	static uint32_t handleProgress(uint32_t, void *);
 	void exchangeTetromino();
 	void sendNext();
