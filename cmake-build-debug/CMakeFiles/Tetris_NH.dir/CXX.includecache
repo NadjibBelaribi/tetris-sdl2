@@ -22,14 +22,6 @@ color.hpp
 cstdint
 -
 
-/home/info/Desktop/tetris-nh/src/grille.cpp
-grille.hpp
-/home/info/Desktop/tetris-nh/src/grille.hpp
-utils.hpp
-/home/info/Desktop/tetris-nh/src/utils.hpp
-block.hpp
-/home/info/Desktop/tetris-nh/src/block.hpp
-
 /home/info/Desktop/tetris-nh/src/grille.hpp
 cstdint
 -
@@ -43,6 +35,28 @@ tetromino.hpp
 /home/info/Desktop/tetris-nh/src/tetromino.hpp
 utils.hpp
 /home/info/Desktop/tetris-nh/src/utils.hpp
+
+/home/info/Desktop/tetris-nh/src/main.cpp
+iostream
+-
+tetris.hpp
+/home/info/Desktop/tetris-nh/src/tetris.hpp
+
+/home/info/Desktop/tetris-nh/src/tetris.hpp
+memory
+-
+random
+-
+grille.hpp
+/home/info/Desktop/tetris-nh/src/grille.hpp
+tetromino.hpp
+/home/info/Desktop/tetris-nh/src/tetromino.hpp
+cstdlib
+-
+cstdio
+-
+ctime
+-
 
 /home/info/Desktop/tetris-nh/src/tetromino.hpp
 memory

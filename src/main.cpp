@@ -159,7 +159,7 @@ void initSDL(){
     }
 
     TTF_Init();
-    app.font = TTF_OpenFont("../assets/font.ttf", 18);
+    app.font = TTF_OpenFont("../assets/font.ttf", 20);
     if(!app.font) {
         std::cout << "TTF_OpenFont: " << TTF_GetError() << std::endl ;
         exit(1);
