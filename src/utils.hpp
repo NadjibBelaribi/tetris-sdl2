@@ -13,9 +13,9 @@ const int WINDOW_HEIGHT = 600;
 
 // GRIDS POSITIONS
 const int X_GRILLE_1 = 50;
-const int Y_GRILLE = 50;
+const int Y_GRILLE = 60;
 const int X_GRILLE_CENTERED = 300 ;
-const int X_GRILLE_2 = 500;
+const int X_GRILLE_2 = 450;
 
 // GRID SIZE
 const int GRID_WIDTH = 360;

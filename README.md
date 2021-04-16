@@ -5,6 +5,7 @@ Advanced programming with C++ and SDL2
 
 # Build It ? 
 
+- Open a terminal then run : 
 - chmod +x run.sh
 - ./run.sh 
   

@@ -143,7 +143,7 @@ void Tetris::handleText(SDL_Renderer *renderer) {
 	else 
 		Message_rect.x = X_GRILLE_2 + 290;
 
-	Message_rect.y = Y_GRILLE - 30;
+	Message_rect.y = Y_GRILLE - 10;
 	Message_rect.w = 90;
 	Message_rect.h = 50;
 	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
@@ -193,7 +193,7 @@ void Tetris::handleText(SDL_Renderer *renderer) {
     snprintf(temp, 255, "Player %d", this->index_grille + 1);
     surfaceMessage = TTF_RenderText_Solid(app.font, temp, White);
     Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-    Message_rect.y += 125;
+    Message_rect.y += 100;
     Message_rect.x -= 245;
     Message_rect.h = 30;
     Message_rect.w = 100;
