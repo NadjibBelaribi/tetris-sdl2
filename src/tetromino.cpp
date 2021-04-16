@@ -64,7 +64,7 @@ Tetromino::~Tetromino()
 {
 }
 
-void Tetromino::render(SDL_Renderer *renderer, Grille *grid)
+void Tetromino::render(SDL_Renderer *renderer, Grille *grid) const
 {
 	for (auto block : this->_blocks)
 	{

@@ -6,7 +6,7 @@ cmake -S . -B build
 # move to build repository
 cd build
 
-########
+    ########
 make
 
 # run 

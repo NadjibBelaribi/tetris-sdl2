@@ -127,7 +127,7 @@ void Tetris::tomberTetromino() {
 }
 
 
-void Tetris::handleText(SDL_Renderer *renderer) {
+void Tetris::handleText(SDL_Renderer *renderer)const {
 
 	SDL_Color White = {255, 255, 255};
 	SDL_Surface *surfaceMessage = NULL;
@@ -202,8 +202,8 @@ void Tetris::handleText(SDL_Renderer *renderer) {
     SDL_DestroyTexture(Message);
 
 }
-
-Uint32 Tetris::handleProgress(uint32_t interval, void *param) {
+// Timer call back to advance the game
+uint32_t Tetris::handleProgress(uint32_t interval, void *param) {
 	auto t = (Tetris *) param;
     t->timePassed ++ ;
     int temp = t->getScore() / 10 - 2 ;

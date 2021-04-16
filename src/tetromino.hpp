@@ -18,7 +18,7 @@ public:
 	Tetromino();
 	Tetromino(TetrominoShape);
 	~Tetromino();
-	void render(SDL_Renderer *, Grille *);
+	void render(SDL_Renderer *, Grille *)const;
 
 	bool ableMove(Direction, Grille *);
 	bool getState();

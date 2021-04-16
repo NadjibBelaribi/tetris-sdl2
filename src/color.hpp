@@ -3,16 +3,16 @@
 
 #include <cstdint>
 
-class Color {
+class Color { // Make Color Manipulation easy 
 public:
 	Color();
 	Color(uint8_t, uint8_t, uint8_t, uint8_t);
 	~Color();
 	uint8_t r, g, b, a;
-	// new colors equality definition
-	bool operator==(const Color &);
-	// new colors differency definition
-	bool operator!=(const Color &);
+	// overload color equality 
+	inline bool operator==(const Color &c){return this->r == c.r && this->g == c.g && this->b == c.b && this->a == c.a;}
+	// overload color inequality 
+	inline bool operator!=(const Color &c){return this->r != c.r || this->g != c.g || this->b != c.b || this->a != c.a;}
 };
 
 const Color CYAN = Color(0, 255, 255, 255);

@@ -20,7 +20,7 @@ public:
 	~Tetris();
 	void handleInput();
 	bool isFinished();
-	void handleText(SDL_Renderer *);
+	void handleText(SDL_Renderer *) const;
 	uint32_t getScore();
  	std::unique_ptr<Tetromino> currTetromino;
 	uint8_t index_grille;

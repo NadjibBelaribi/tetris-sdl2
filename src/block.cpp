@@ -25,12 +25,7 @@ Block::~Block()
 {
 }
 
-std::pair<int8_t, int8_t> Block::getPosition()
-{
-	return this->_position;
-}
-
-void Block::render(SDL_Renderer *renderer, Grille *grid)
+void Block::render(SDL_Renderer *renderer, Grille *grid) const
 {
 	auto pos = this->_position;
 	auto pixels = grid->map_cord(pos.first, pos.second);
@@ -55,19 +50,3 @@ void Block::render(SDL_Renderer *renderer, Grille *grid)
 	SDL_SetRenderDrawColor(renderer, primary.r, primary.g, primary.b, primary.a);
 }
 
-void Block::translate(int8_t x, int8_t y)
-{
-	this->_position.first += x;
-	this->_position.second += y;
-}
-
-void Block::setPosition(int8_t x, int8_t y)
-{
-	this->_position.first = x;
-	this->_position.second = y;
-}
-
-void Block::setColor(Color c)
-{
-	this->_color = c;
-}

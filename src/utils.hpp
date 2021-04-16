@@ -21,16 +21,9 @@ const int X_GRILLE_2 = 450;
 const int GRID_WIDTH = 360;
 const int GRID_HEIGHT = 630;
 
-// GAME MODES
-typedef enum {
-	SOLO,
-	DUO,
-	NONE
-} GAME_MODE;
-
 // TETROMINOS SHAPES
 typedef enum {
-	I = 0,
+	I ,
 	J,
 	L,
 	O,
@@ -39,6 +32,15 @@ typedef enum {
 	Z,
 	NSHAPES
 } TetrominoShape;
+
+
+// GAME MODES
+typedef enum {
+	SOLO,
+	DUO,
+	NONE
+} GAME_MODE;
+
 
 // App frame
  struct App {

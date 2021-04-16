@@ -33,6 +33,7 @@ void Grille::render(SDL_Renderer *renderer)
     }
 }
 
+// initialise the map matrix 
 void Grille::setMap()
 {
     for (int y = 0; y < this->map.size(); y++)
@@ -47,19 +48,20 @@ void Grille::setMap()
     }
 }
 
+// Console position 
 std::pair<int, int> Grille::map_cord(int8_t x, int8_t y) const
 {
 
     int shiftX = GRID_WIDTH / this->map[0].size() - 7;
-
     int shiftY = GRID_HEIGHT / this->map.size() - 7;
 
     return {shiftX * x, shiftY * y};
 }
 
+// can we move tetromino down ? 
 bool Grille::moveTetromino(Tetromino t, Direction d) {
     for(auto block : t.blocks()) {
-        std::pair<uint8_t, uint8_t> offset = std::make_pair(0, 0);
+        std::pair<uint8_t, uint8_t> offset = {0,0} ;
         auto pos = block.getPosition();
         switch(d) {
             case Right:
@@ -97,6 +99,7 @@ void Grille::setColor(Tetromino t)
     }
 }
 
+// Check if a map's line is empty from Black default color
 uint32_t Grille::isTetris()
 {
     uint32_t points = 0;
@@ -128,6 +131,7 @@ void Grille::updateMap(uint8_t rowIndex)
     this->map[0][0] = CYAN;
     this->map[0][this->map[0].size() - 1] = CYAN;
 
+    // overwrite the tetris line
     for (uint8_t i = rowIndex; i > 0; i--)
             this->map[i] = this->map[i - 1];
 
